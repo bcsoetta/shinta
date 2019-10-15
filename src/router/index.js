@@ -14,21 +14,19 @@ export default new Router({
       path: '/',
       component: MainApp,
       children: [
-        // home page
-        {
-          path: '',
-          alias: 'home',
-          component: SelectPenumpang
-        },
         // browse data cd [INCOMPLETE]
         {
           path: 'cd',
           component: BrowseData,
-          props: (route) => ({ title: 'Customs Declaration' })
+          props: (route) => ({ title: 'Customs Declaration', doctype: 'cd' })
         },
         {
           path: 'kurs',
           component: KursViewer
+        },
+        {
+          path: 'penumpang',
+          component: SelectPenumpang
         }
       ]
     },

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2>Kurs Pajak dan BI</h2>
+        <h3>Kurs Pajak dan BI</h3>
         <hr>
         <div class="table-responsive-md">
         <table class="table table-striped table-bordered table-hover table-sm">
@@ -51,7 +51,7 @@ export default {
     loadKurs (pageToLoad = 1) {
       const vm = this
       this.loading = true
-      this.$store.dispatch('fetchData', { doctype: 'kurs', params: { page: pageToLoad } })
+      this.$store.dispatch('fetchData', { doctype: 'kurs', params: { page: pageToLoad, number: 10 } })
         .then(function (res) {
           console.log('got data')
           // console.log(res.data)
