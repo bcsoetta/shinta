@@ -2,6 +2,7 @@
     <div class="container">
         <h2>Kurs Pajak dan BI</h2>
         <hr>
+        <div class="table-responsive-md">
         <table class="table table-striped table-bordered table-hover table-sm">
             <thead class="thead-dark">
                 <th>Kode Valas</th>
@@ -12,21 +13,25 @@
                 <th>Action</th>
             </thead>
             <tbody>
-                <tr v-for="data in kursData" :key="data.id">
+                <tr v-if="this.loading">
+                  <td colspan="6"><p style="text-align: center">Loading Data...</p></td>
+                </tr>
+                <tr v-else v-for="data in kursData" :key="data.id">
                     <td>{{ data.kode_valas }}</td>
                     <td>{{ data.kurs_idr }}</td>
                     <td>{{ data.jenis }}</td>
                     <td>{{ data.tanggal_awal }}</td>
                     <td>{{ data.tanggal_akhir }}</td>
                     <td style="text-align: center">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                        <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        </div>
         <div>
-            <PaginationControl :pagination-data="this.pagination" />
+            <PaginationControl :pagination-data="this.pagination" @pageChange="handlePageChange" />
         </div>
     </div>
 </template>
@@ -38,7 +43,31 @@ import PaginationControl from '@/components/PaginationControl'
 export default {
   data () {
     return {
-      dataSrc: null
+      dataSrc: null,
+      loading: true
+    }
+  },
+  methods: {
+    loadKurs (pageToLoad = 1) {
+      const vm = this
+      this.loading = true
+      this.$store.dispatch('fetchData', { doctype: 'kurs', params: { page: pageToLoad } })
+        .then(function (res) {
+          console.log('got data')
+          // console.log(res.data)
+
+          vm.dataSrc = res.data
+          vm.loading = false
+        })
+        .catch(function (e) {
+          console.log('error')
+          // console.log(e)
+          vm.loading = false
+        })
+    },
+    handlePageChange (e) {
+      console.log(e)
+      this.loadKurs(e)
     }
   },
   components: { PaginationControl },
@@ -48,21 +77,13 @@ export default {
     },
     pagination () {
       return this.dataSrc ? this.dataSrc.meta.pagination : null
+    },
+    currentPage () {
+      return this.dataSrc.meta.pagination.current_page || 0
     }
   },
   mounted () {
-    const vm = this
-    this.$store.dispatch('fetchData', { doctype: 'kurs', pagination: this.pagination })
-      .then(function (res) {
-        console.log('got data')
-        // console.log(res.data)
-
-        vm.dataSrc = res.data
-      })
-      .catch(function (e) {
-        console.log('error')
-        console.log(e)
-      })
+    this.loadKurs()
   }
 }
 </script>

@@ -48,7 +48,13 @@ export default {
         console.log('Pagination:')
         console.log(payload.pagination)
       }
-      return apiShinta.get(apiMap[payload.doctype])
+      // build parameter
+      var config = {
+        params: {
+          ...payload.params
+        }
+      }
+      return apiShinta.get(apiMap[payload.doctype], config)
     }
   },
   getters: {
