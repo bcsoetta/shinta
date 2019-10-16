@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-  <div class="table-responsive">
-  <table id="example" class="display" style="width:100%">
+  <div class="table-responsive-md">
+  <table id="example" class="table table-sm table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>

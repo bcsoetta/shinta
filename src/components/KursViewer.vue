@@ -23,8 +23,10 @@
                     <td>{{ data.tanggal_awal }}</td>
                     <td>{{ data.tanggal_akhir }}</td>
                     <td style="text-align: center">
-                        <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
-                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></button>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Delete</button>
+                      </div>
                     </td>
                 </tr>
             </tbody>
