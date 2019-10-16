@@ -33,7 +33,7 @@
         </table>
         </div>
         <div>
-            <PaginationControl :pagination-data="this.pagination" @pageChange="handlePageChange" />
+            <pagination-control :pagination-data="this.pagination" @pageChange="handlePageChange" />
         </div>
     </div>
 </template>

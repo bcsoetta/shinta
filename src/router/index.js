@@ -18,15 +18,24 @@ export default new Router({
         {
           path: 'cd',
           component: BrowseData,
-          props: (route) => ({ title: 'Customs Declaration', doctype: 'cd' })
+          props: (route) => ({ title: 'Customs Declaration', doctype: 'cd' }),
+          meta: {
+            authNeeded: true
+          }
         },
         {
           path: 'kurs',
-          component: KursViewer
+          component: KursViewer,
+          meta: {
+            authNeeded: true
+          }
         },
         {
           path: 'penumpang',
-          component: SelectPenumpang
+          component: SelectPenumpang,
+          meta: {
+            authNeeded: true
+          }
         }
       ]
     },
